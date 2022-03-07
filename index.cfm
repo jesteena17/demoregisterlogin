@@ -7,6 +7,42 @@
 	</head>
 		<body>
 			<!---Login form--->
+
+			<cfset errormsg="">
+<cfif structKeyExists(form,"submitButton") and cgi.request_method is "post">
+
+	<cfinvoke component="cf_validate" method="checkLogin" returnvariable="result">
+   
+    <cfinvokeargument name="username" value="#form.username#"/> 
+    <cfinvokeargument name="password" value="#form.password#"/> 
+  
+</cfinvoke>
+
+
+
+ <cfif result EQ 1>
+                     
+			 <cfif session.stLoggedInUser.userrole EQ 0>
+                    		 
+					 <cfdump var="0">
+					  <cflocation url="./admin/main.cfm" addtoken="no"> 
+		             
+                       <cfelseif session.stLoggedInUser.userrole EQ 1>
+					    <cfdump var="1">
+					  <cflocation url="./admin/main.cfm" addtoken="no"> 
+		             	
+					    <cfelse>
+						 <cfdump var="2">
+                         <cflocation url="cf_welcome.cfm" addtoken="no"> 
+		             
+                  </cfif>
+				  <cfelse>
+				   <cfset errormsg="invalid username or password">
+		<!--- <cflocation url="index.cfm" addtoken="No"> --->
+		
+			</cfif>
+
+</cfif>
 			<div id="login">
 		        <h3 class="text-center text-white pt-5">Login form</h3>
 		        <div class="container">
@@ -24,11 +60,17 @@
 		                                <input type="password" name="password" id="password" class="form-control"  placeholder="Employee name" onchange="_fnDisable(this)" >
 		                            </div>
 		                            <div class="form-group">
-		                                <input type="submit" name="submitButton" id="submitButton" class="btn btn-info btn-md enableOnInput" onclick="_fnSubmitViaAjax(event)" value="Login" disabled>
+									<input type="submit" name="submitButton" id="submitButton" class="btn btn-info btn-md enableOnInput" value="Login" >
+		                               <!-- <input type="submit" name="submitButton" id="submitButton" class="btn btn-info btn-md enableOnInput" onclick="_fnSubmitViaAjax(event)" value="Login" disabled> -->
 		                                <!---<button class="btn btn-lg btn-primary btn-block" type="button" id="loginbutton">Login</button>--->	
 		                            </div>
 		                        </form>
-		                        <div id="messageBox" style="color:red"></div>
+
+
+
+
+
+		                        <div id="messageBox" style="color:red"><cfoutput>#errormsg#</cfoutput> </div>
 		                    </div>
 		                </div>
 		            </div>

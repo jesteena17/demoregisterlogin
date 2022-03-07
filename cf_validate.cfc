@@ -1,25 +1,26 @@
 <cfcomponent>
-        <cfset request.dsn = "people_data">
+        <cfset request.dsn = "mysqldsn">
       
 <cffunction name="checkLogin" access="remote" returnType="string" returnformat="plain" output="false">
      <cfargument name="username" required="true">
     <cfargument name="password" required="true">
-    <cfset var returnStg = "">
-    
+    <cfset var isUserLoggedIn = "">
+
         <cfquery  name="validateUser"  datasource = "#request.dsn#"  result="tmpResult">
-            SELECT name,phone FROM people_details WHERE name=<cfqueryparam value="#arguments.username#" cfsqltype="cf_sql_varchar" maxlength="255"> 
-            AND phone=<cfqueryparam value="#arguments.password#" cfsqltype="cf_sql_varchar" maxlength="4000">
+            SELECT * FROM t28user WHERE username=<cfqueryparam value="#arguments.username#" cfsqltype="cf_sql_varchar" maxlength="255"> 
+            AND password=<cfqueryparam value="#arguments.password#" cfsqltype="cf_sql_varchar" maxlength="4000">
         </cfquery>
          
         <cfif validateUser.RecordCount EQ 1>
-            <cfset session.loggedin = true>
-
-            <cfset returnStg = true>
+          
+<cfset session.stLoggedInUser = {'loggedin'=true,'username' = validateUser.username, 'userID' = validateUser.userid,'userRole'=validateUser.userrole} />
+         
+            <cfset isUserLoggedIn = true>
         <cfelse>
-            <cfset returnStg = false>
+            <cfset isUserLoggedIn = false>
         </cfif>
         
-    <cfreturn returnStg>    
+    <cfreturn isUserLoggedIn>    
 </cffunction>
     
 </cfcomponent>
