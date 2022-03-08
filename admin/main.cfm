@@ -1,3 +1,8 @@
+<CFIF session.stLoggedInUser.loggedin EQ false >
+<cflocation URL="logout.cfm">
+</CFIF>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,7 +25,7 @@
 							#session.stLoggedInUser.username#(#session.stLoggedInUser.userrole==0?"Admin":session.stLoggedInUser.userrole==1?"Editor":"User"#)
 								</cfoutput></span>
 	    						<!---<button class="btn btn-lg btn-danger btn-block" type="button" id="logoutbutton"><a href="index.cfm">Logout</button></a>--->
-	    						<input type="submit" name="logoutButton" id="logoutButton" class="btn btn-danger btn-sm" onclick="_fnLogOutViaAjax(event)" value="Logout" >
+	    					<a href="logout.cfm" id="logoutButton" class="btn btn-sm btn-danger">Logout</a>
 	  						</form> 
 	                    </div>
 	                </div>

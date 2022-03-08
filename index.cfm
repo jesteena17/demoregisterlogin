@@ -1,9 +1,11 @@
+
 <!--- Please insert your code here --->
 <!doctype html>
 <html lang="en">
 	<head>
 		<cfinclude template="common.cfm" >
 		<title> Home</title>
+		
 	</head>
 		<body>
 			<!---Login form--->
@@ -39,7 +41,11 @@
 				  <cfelse>
 				   <cfset errormsg="invalid username or password">
 		<!--- <cflocation url="index.cfm" addtoken="No"> --->
-		
+		 <cfset StructDelete(Session, "stLoggedInUser")/>
+<cfset  StructClear(Session) />
+    <cflocation url="index.cfm" addtoken="No">
+   
+    
 			</cfif>
 
 </cfif>

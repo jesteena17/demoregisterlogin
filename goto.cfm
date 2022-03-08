@@ -1,6 +1,5 @@
 
 
-
 <CFIF session.stLoggedInUser.loggedin EQ false >
 <cflocation URL="logout.cfm">
 </CFIF>
@@ -9,7 +8,6 @@
 <!Doctype html>
 <html lang="en">
 				<head>
-
 					<cfinclude template="common.cfm" >
 					<style>
 			body {font-family: Arial;}
