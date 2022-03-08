@@ -8,9 +8,9 @@
         <cfargument name="thePage" type="string" required="true">
         <cfset var page = listLast(arguments.thePage,"/")>
     
-        <cfif not listFindNoCase("loginform.cfm,cf_validate.cfc",page)>        
-            <cfif not structKeyExists(session, "loggedin") or session.loggedin is false>
-                <cflocation url="loginform.cfm" addToken="false">
+        <cfif not listFindNoCase("index.cfm,cf_validate.cfc",page)>        
+            <cfif  session.stLoggedInUser.loggedin is false>
+                <cflocation url="index.cfm" addToken="false">
             </cfif>
         </cfif>
         <cfreturn true>
@@ -18,7 +18,7 @@
     
     <!--- Runs when your session starts --->
     <cffunction name="onSessionStart" returnType="void" output="false">
-        <cfset session.loggedin = false>
+        <cfset session.stLoggedInUser.loggedin = false>
     </cffunction>
 
 </cfcomponent>
