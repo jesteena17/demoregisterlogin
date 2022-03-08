@@ -1,8 +1,4 @@
 
-<Cfset thisPath = expandPath('.')>
-   <cfset f_dir = GetDirectoryFromPath(thisPath)>
-
-
 
 
 <cfdump var="#session#">
