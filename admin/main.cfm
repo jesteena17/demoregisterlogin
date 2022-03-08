@@ -1,3 +1,6 @@
+<CFIF session.stLoggedInUser.loggedin EQ false >
+<cflocation URL="logout.cfm">
+</CFIF>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,9 +11,7 @@
         <cfinclude template="common.cfm" >
     </head>
     <body>
-
-	       
-	        <div class="container text-right pt-5">
+        <div class="container text-right pt-5">
 	            <div id="login-row" class="row justify-content-center align-items-center">
 	                <div id="login-column" class="col-md-12">
 	                    <div id="login-box" class="col-md-12">
@@ -20,26 +21,20 @@
 							#session.stLoggedInUser.username#(#session.stLoggedInUser.userrole==0?"Admin":session.stLoggedInUser.userrole==1?"Editor":"User"#)
 								</cfoutput></span>
 	    						<!---<button class="btn btn-lg btn-danger btn-block" type="button" id="logoutbutton"><a href="index.cfm">Logout</button></a>--->
-	    						<input type="submit" name="logoutButton" id="logoutButton" class="btn btn-danger btn-sm" onclick="_fnLogOutViaAjax(event)" value="Logout" >
+	    					<a href="logout.cfm" id="logoutButton" class="btn btn-sm btn-danger">Logout</a>
 	  						</form> 
 	                    </div>
 	                </div>
 	            </div>
-	        </div>
-	   
-
-
-
-
-
+	    </div>
         <cfset  request.dsn="mysqldsn"/>
         <cfset  request.un="root"/>
         <cfset  request.pw="Password@123"/>
         <cfset  employeeid=""/>
         <cfset  employeename=""/>
         <cfset  jobname=""/>
- <cfif IsDefined("url.tide")>
-            <cfset  editid="#URL.tide#"/>
+        <cfif IsDefined("url.tide")>
+                <cfset  editid="#URL.tide#"/>
             <cfif IsNumeric(editid)>
                 <cfquery name = "getemployeebyid" datasource = "#request.dsn#" username = "#request.un#" password = "#request.pw#">
                     select *  from t28pages where pageid=<cfqueryparam value="#editid#"  cfsqltype="cf_sql_integer">      
@@ -65,9 +60,7 @@
                                 <th>Page Description</th>
                                 <td><input type="text" class="form-control" name="description" value="<cfoutput> #jobname# </cfoutput>" required/></td>
                             </tr>
-                           
-                            
-                            <tr>
+                           <tr>
                                 <td class="pt-3" align="center" colspan="2">
                                     <input type="submit" name="registerbtn" value="SAVE" class="btn btn-success"/>
                                     <cfif IsDefined("url.tide") and IsNumeric(editid)>
@@ -94,8 +87,6 @@
                                             <th>Page#ID</th>
                                             <th>Page Name</th>
                                             <th>Page Description</th>
-                                            
-
                                             <th colspan="3">ACTION</th>
                                         </tr>
                                     </thead>
@@ -106,35 +97,25 @@
                                                 <td>#getemployees.pagename#</td>
                                                
                                                 <td>#getemployees.pagedescription#</td>
-                                               
-                                    
-                                                <td>
+                                                  <td>
                                                     <cfset  key="editid"/>
                                                     <a class="btn btn-warning" href="#cgi.script_name#?tide=#getemployees.pageid#">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                 </td>
                                                 <td>
-                                                
-                                                    <a class="btn btn-danger" style="color:white" href="maindelete.cfm?die=#getemployees.pageid#">
+                                                <a class="btn btn-danger" style="color:white" href="maindelete.cfm?die=#getemployees.pageid#">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
                                                 </td>
-                                            
-                                            </tr>
+                                                 </tr>
                                         </cfoutput>
-                                    </cfloop>
-                                    <tbody></tbody>
+                                    </cfloop>                                   
                                 </table>
                             </div>
                         </div>
                     </div>
-                  </div>
                 </div>
-
-
-
-
-  
-                </body>
-            </html>
+            </div>
+    </body>
+</html>
