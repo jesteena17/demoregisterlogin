@@ -12,7 +12,7 @@
                 <cfheader name="cache-control" value="no-cache, no-store, must-revalidate"> 
                 <cfheader name="pragma" value="no-cache">
                 <cfheader name="expires" value="#getHttpTimeString(now())#">
-                <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+                 <link rel="stylesheet" href="css/style.css"> 
                 <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
                 <link rel="stylesheet" href="css/font-awesome.min.css">		
                 <script type='text/javascript' src="js/jquery.min.js"></script>	
